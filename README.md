@@ -2,7 +2,7 @@
 
 React-find can help you locate files quickly
 
-![React-find in action](./demo.gif)
+![React-find in action](https://raw.githubusercontent.com/mjw-git/react-find/main/demo.gif)
 
 
 ## Install
