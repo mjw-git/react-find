@@ -1,9 +1,19 @@
 {
   "name": "react-find",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "type": "module",
   "main": "dist/index.es.js",
   "types": "dist/index.d.ts",
+  "keywords": [
+    "react",
+    "react-find",
+    "react find",
+    "react dev"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjw-git/react-find"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

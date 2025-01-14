@@ -1,20 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-require-imports */
 
-import type { CSSProperties, ReactElement } from 'react';
+import { version, type CSSProperties, type ReactElement } from 'react';
 import { render } from 'react-dom';
-
 import SelectModal from './SelectModal';
+
 interface ParamsProps {
   protocol?: string;
   keyCode?: string[];
 }
 const init = (params?: ParamsProps) => {
-  const { protocol, keyCode = ['Meta'] } = params || {};
   if (process.env.NODE_ENV !== 'development') return;
+  const { protocol, keyCode = ['Meta'] } = params || {};
+
   const body = document.body;
   let current: HTMLElement | null = null;
   let keyDown = false;
+  let root: { render: any } | null = null;
   const createRootDom = () => {
     const dom = document.querySelector('#react-find-wrapper');
     if (dom) {
@@ -31,11 +33,19 @@ const init = (params?: ParamsProps) => {
     }
   };
   const rootDom = createRootDom();
+
+  if (Number(version.split('.')[0]) <= 17) {
+    root = { render: (v: null | JSX.Element | ReactElement) => render(v as any, rootDom) };
+  } else {
+    const reactDom = require('react-dom/client');
+
+    root = reactDom.createRoot(rootDom);
+  }
+
   const clear = () => {
-    root.render(null);
+    root?.render(null);
     keyDown = false;
   };
-  const root = { render: (v: null | JSX.Element | ReactElement) => render(v as any, rootDom) };
 
   const findReactFiberAttr = (node: HTMLElement) => {
     for (const prop in node) {
@@ -44,6 +54,7 @@ const init = (params?: ParamsProps) => {
       }
     }
   };
+
   const findParentNodeFileAttr = (node: HTMLElement) => {
     let _node: HTMLElement | null = node;
     let attr = findReactFiberAttr(_node) as unknown as { _debugSource: Record<string, string> };
@@ -79,7 +90,7 @@ const init = (params?: ParamsProps) => {
           zIndex: 9999,
           border: '1px dashed #8250DF',
         };
-        root.render(
+        root?.render(
           <SelectModal
             onSuccess={() => {
               clear();
