@@ -9,6 +9,15 @@ interface ParamsProps {
   protocol?: string;
   keyCode?: string[];
 }
+export interface FiberNode {
+  type: string | { name: string };
+  _debugOwner: FiberNode;
+  _debugSource: {
+    columnNumber: number;
+    lineNumber: number;
+    fileName: string;
+  };
+}
 const init = (params?: ParamsProps) => {
   if (process.env.NODE_ENV !== 'development') return;
   const { protocol, keyCode = ['Meta'] } = params || {};
@@ -47,20 +56,20 @@ const init = (params?: ParamsProps) => {
     keyDown = false;
   };
 
-  const findReactFiberAttr = (node: HTMLElement) => {
+  const findReactFiberAttr = (node: HTMLElement): FiberNode | undefined => {
     for (const prop in node) {
       if (prop.startsWith('__reactFiber')) {
-        return node[prop as keyof HTMLElement];
+        return node[prop as keyof HTMLElement] as unknown as FiberNode;
       }
     }
   };
 
   const findParentNodeFileAttr = (node: HTMLElement) => {
+    const list: FiberNode[] = [];
     let _node: HTMLElement | null = node;
-    let attr = findReactFiberAttr(_node) as unknown as { _debugSource: Record<string, string> };
-
+    let attr = findReactFiberAttr(_node);
     while (
-      !attr?._debugSource?.fileName &&
+      !attr &&
       _node &&
       _node.parentElement !== body &&
       _node !== body &&
@@ -68,17 +77,45 @@ const init = (params?: ParamsProps) => {
       rootDom !== _node
     ) {
       _node = _node.parentElement;
-      attr = findReactFiberAttr(_node!) as unknown as { _debugSource: Record<string, string> };
+      if (_node) {
+        attr = findReactFiberAttr(_node);
+      }
     }
-    return { attr, _node, currentNode: node };
+    if (attr) list.push(attr);
+    while (attr?._debugOwner) {
+      list.push(attr._debugOwner);
+      attr = attr._debugOwner;
+    }
+    // if(!attr){
+    //     whi
+    // }
+    // if (attr) {
+    //   if (attr._debugSource) {
+    //     return { attr, _node, currentNode: node };
+    //   }
+    // } else {
+    // }
+
+    // while (
+    //   !attr?._debugSource &&
+    //   _node &&
+    //   _node.parentElement !== body &&
+    //   _node !== body &&
+    //   !rootDom.contains(_node) &&
+    //   rootDom !== _node
+    // ) {
+    //   _node = _node.parentElement;
+    //   attr = findReactFiberAttr(_node!) as unknown as { _debugSource: Record<string, string> };
+    // }
+    return { list, attr, _node, currentNode: node };
   };
 
   const renderRect = () => {
     if (keyDown && current && document.body.contains(current)) {
       const rootDom = createRootDom();
-      const { attr, _node } = findParentNodeFileAttr(current);
+      const { attr, _node, list, currentNode } = findParentNodeFileAttr(current);
       if (attr && _node && _node !== rootDom && !rootDom.contains(_node) && rootDom !== _node) {
-        const rect = _node.getBoundingClientRect();
+        const rect = currentNode.getBoundingClientRect();
         const customStyle: CSSProperties = {
           wordBreak: 'break-all',
           width: rect.width,
@@ -87,16 +124,19 @@ const init = (params?: ParamsProps) => {
           left: rect.left,
           opacity: 0.2,
           background: '#8250DF',
-          zIndex: 9999,
+          zIndex: 999999,
           border: '1px dashed #8250DF',
         };
+        const filePath = list.find((item) => item._debugSource);
+        if (list.length === 0 || !filePath) return;
         root?.render(
           <SelectModal
+            list={list}
             onSuccess={() => {
               clear();
             }}
             protocol={protocol}
-            filePath={`${attr?._debugSource?.fileName}:${attr?._debugSource?.lineNumber}`}
+            filePath={`${filePath._debugSource.fileName}:${filePath._debugSource.lineNumber}`}
             style={customStyle}
           />,
         );
