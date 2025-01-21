@@ -1,6 +1,6 @@
 {
   "name": "react-find",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "main": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -10,6 +10,7 @@
     "react find",
     "react dev"
   ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/mjw-git/react-find"

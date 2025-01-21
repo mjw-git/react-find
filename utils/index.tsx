@@ -18,9 +18,13 @@ export interface FiberNode {
     fileName: string;
   };
 }
+const isMac = function () {
+  return /macintosh|mac os x/i.test(navigator.userAgent);
+};
+const DEFAULT_KEY_CODE = isMac() ? ['Meta'] : ['Control'];
 const init = (params?: ParamsProps) => {
   if (process.env.NODE_ENV !== 'development') return;
-  const { protocol, keyCode = ['Meta'] } = params || {};
+  const { protocol, keyCode = DEFAULT_KEY_CODE } = params || {};
 
   const body = document.body;
   let current: HTMLElement | null = null;
@@ -86,27 +90,7 @@ const init = (params?: ParamsProps) => {
       list.push(attr._debugOwner);
       attr = attr._debugOwner;
     }
-    // if(!attr){
-    //     whi
-    // }
-    // if (attr) {
-    //   if (attr._debugSource) {
-    //     return { attr, _node, currentNode: node };
-    //   }
-    // } else {
-    // }
 
-    // while (
-    //   !attr?._debugSource &&
-    //   _node &&
-    //   _node.parentElement !== body &&
-    //   _node !== body &&
-    //   !rootDom.contains(_node) &&
-    //   rootDom !== _node
-    // ) {
-    //   _node = _node.parentElement;
-    //   attr = findReactFiberAttr(_node!) as unknown as { _debugSource: Record<string, string> };
-    // }
     (window as any).react_find_attr_list = list;
     return { list, attr, _node, currentNode: node };
   };

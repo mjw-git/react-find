@@ -80,7 +80,7 @@ const SelectModal = (props: SelectModalProps) => {
                   ref.current[index].style.color = '#fff';
                 }}
                 onMouseEnter={() => {
-                  ref.current[index].style.color = '#416AE0';
+                  ref.current[index].style.color = '#82CC8F';
                 }}
                 style={{
                   fontSize: 12,
@@ -96,7 +96,7 @@ const SelectModal = (props: SelectModalProps) => {
                   <span
                     style={{
                       background: '#fff',
-                      color: index === 0 ? '#416AE0' : '#000',
+                      color: index === 0 ? '#82CC8F' : '#000',
                       fontSize: 10,
                       padding: '0 5px',
                       marginLeft: 4,
@@ -109,9 +109,6 @@ const SelectModal = (props: SelectModalProps) => {
                   title={item?._debugSource?.fileName}
                   style={{
                     wordBreak: 'break-all',
-                    // whiteSpace: 'nowrap',
-                    // overflow: 'hidden',
-                    // textOverflow: 'ellipsis',
                   }}>
                   <span
                     style={{
@@ -171,7 +168,7 @@ const SelectModal = (props: SelectModalProps) => {
             overflow: 'hidden',
           }}>
           <div style={dialogCss}>
-            <div style={{ fontWeight: 600 }}>选择打开的IDE</div>
+            <div style={{ fontWeight: 600 }}>Choose IDE</div>
             <div
               style={{
                 display: 'flex',
