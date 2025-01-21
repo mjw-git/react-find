@@ -1,5 +1,7 @@
 # React-find
 
+## Demo
+
 React-find can help you locate files quickly
 
 ![React-find in action](https://raw.githubusercontent.com/mjw-git/react-find/main/demo.gif)
@@ -12,6 +14,8 @@ Of course you can use the context menu to find the current node and its parent n
 ```shell
 pnpm install react-find
 ```
+
+## Start
 
 Add the script to your file like `pages/app.tsx`:
 
