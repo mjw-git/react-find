@@ -4,6 +4,9 @@ React-find can help you locate files quickly
 
 ![React-find in action](https://raw.githubusercontent.com/mjw-git/react-find/main/demo.gif)
 
+Of course you can use the context menu to find the current node and its parent nodes
+![React-find in action](https://raw.githubusercontent.com/mjw-git/react-find/main/demo2.gif)
+
 ## Install
 
 ```shell
@@ -20,7 +23,7 @@ init();
 
 Then Press the command(mac) or ctrl(win) to try it
 
-If you always use the cursor,You can init like this,it's default to vscode
+If you always use the other IDE,You can init like this
 
 ```js
 init({ protocol: 'cursor' });
