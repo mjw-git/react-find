@@ -21,9 +21,10 @@ export default defineConfig({
       output: {
         globals: {
           react: 'React',
+          reactDom: 'react-dom',
         },
       },
-      external: ['react'],
+      external: ['react', 'react-dom'],
     },
   },
 });

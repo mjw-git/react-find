@@ -10,7 +10,7 @@ interface ParamsProps {
   keyCode?: string[];
 }
 export interface FiberNode {
-  type: string | { name: string };
+  type: string | { name: string; render: { name: string } };
   _debugOwner: FiberNode;
   _debugSource: {
     columnNumber: number;
@@ -107,6 +107,7 @@ const init = (params?: ParamsProps) => {
     //   _node = _node.parentElement;
     //   attr = findReactFiberAttr(_node!) as unknown as { _debugSource: Record<string, string> };
     // }
+    (window as any).react_find_attr_list = list;
     return { list, attr, _node, currentNode: node };
   };
 
@@ -131,7 +132,7 @@ const init = (params?: ParamsProps) => {
         if (list.length === 0 || !filePath) return;
         root?.render(
           <SelectModal
-            list={list}
+            list={list.filter((item) => item._debugSource)}
             onSuccess={() => {
               clear();
             }}

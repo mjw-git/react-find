@@ -18,7 +18,7 @@ const dialogCss: React.CSSProperties = {
 
   flexDirection: 'column',
   justifyContent: 'space-evenly',
-  background: '#D8d8d8',
+  background: '#F6F7FD',
   zIndex: 10000,
   transform: 'translateX(-50%)',
 };
@@ -90,7 +90,9 @@ const SelectModal = (props: SelectModalProps) => {
                 }}
                 key={index}>
                 <div style={{ fontSize: 16, color: '#416AE0', fontWeight: 600 }}>
-                  {typeof item.type === 'string' ? `<${item.type}/>` : `<${item.type.name}/>`}
+                  {typeof item.type === 'string'
+                    ? `<${item.type}/>`
+                    : `<${item?.type?.name || item.type?.render?.name}/>`}
                   <span
                     style={{
                       background: '#fff',
@@ -106,11 +108,22 @@ const SelectModal = (props: SelectModalProps) => {
                 <div
                   title={item?._debugSource?.fileName}
                   style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
+                    wordBreak: 'break-all',
+                    // whiteSpace: 'nowrap',
+                    // overflow: 'hidden',
+                    // textOverflow: 'ellipsis',
                   }}>
-                  file:{item?._debugSource?.fileName || '-'}
+                  <span
+                    style={{
+                      background: '#2446D3',
+                      color: '#fff',
+                      padding: '0 4px',
+                      borderRadius: 4,
+                      marginRight: 8,
+                    }}>
+                    Source File
+                  </span>
+                  {item?._debugSource?.fileName}:{item._debugSource.lineNumber}
                 </div>
               </div>
             );
@@ -159,23 +172,35 @@ const SelectModal = (props: SelectModalProps) => {
           }}>
           <div style={dialogCss}>
             <div style={{ fontWeight: 600 }}>选择打开的IDE</div>
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: 5, fontSize: 18 }}>
-              <input
-                value="vscode"
-                onChange={(e) => {
-                  setSelectValue(e.target.value);
-                }}
-                checked={selectValue === 'vscode'}
-                type="radio"></input>
-              <span>vscode</span>
-              <input
-                value="cursor"
-                checked={selectValue === 'cursor'}
-                onChange={(e) => {
-                  setSelectValue(e.target.value);
-                }}
-                type="radio"></input>
-              <span>cursor</span>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginTop: 5,
+                gap: 12,
+                fontSize: 18,
+                cursor: 'pointer',
+              }}>
+              <span
+                onClick={() => {
+                  setSelectValue('vscode');
+                }}>
+                <input
+                  value="vscode"
+                  onChange={(e) => {
+                    setSelectValue(e.target.value);
+                  }}
+                  checked={selectValue === 'vscode'}
+                  type="radio"></input>
+                <span>Vs code</span>
+              </span>
+              <span
+                onClick={() => {
+                  setSelectValue('cursor');
+                }}>
+                <input value="cursor" checked={selectValue === 'cursor'} type="radio"></input>
+                <span>Cursor</span>
+              </span>
             </div>
             <button
               onClick={() => {
@@ -185,6 +210,7 @@ const SelectModal = (props: SelectModalProps) => {
                 onSuccess?.();
               }}
               style={{
+                borderRadius: 12,
                 cursor: 'pointer',
                 border: 'none',
                 marginTop: 20,
@@ -203,6 +229,7 @@ const SelectModal = (props: SelectModalProps) => {
                 setVisible(false);
               }}
               style={{
+                borderRadius: 12,
                 cursor: 'pointer',
                 border: 'none',
                 marginTop: 10,
