@@ -85,7 +85,7 @@ const SelectModal = (props: SelectModalProps) => {
                 style={{
                   fontSize: 12,
                   cursor: 'pointer',
-                  borderBottom: '1px solid #fff',
+                  borderBottom: '1px solid grey',
                   padding: '4px 12px',
                 }}
                 key={index}>
