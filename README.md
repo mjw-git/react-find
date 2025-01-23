@@ -19,6 +19,8 @@ pnpm install react-find
 
 Add the script to your file like `pages/app.tsx`:
 
+You need to make sure that process.env.NODE_ENV === 'development'
+
 ```jsx
 import init from 'react-find';
 

@@ -31,7 +31,11 @@ const SelectModal = (props: SelectModalProps) => {
   const [visible, setVisible] = useState(false);
   const [contextMenuStyle, setContextMenuStyle] = useState<CSSProperties>();
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
-
+  const openWithProtocol = (href: string) => {
+    const link = document.createElement('a');
+    link.href = href;
+    link.click();
+  };
   const _protocol = protocol || window.localStorage.getItem('react_find_protocol');
   useEffect(() => {
     setContextMenuVisible(false);
@@ -67,8 +71,7 @@ const SelectModal = (props: SelectModalProps) => {
                   if (_protocol) {
                     onSuccess?.();
                     console.log(11);
-
-                    window.open(
+                    openWithProtocol(
                       `${_protocol}://file/${item._debugSource.fileName}:${item._debugSource.lineNumber}`,
                     );
                   } else {
@@ -149,7 +152,9 @@ const SelectModal = (props: SelectModalProps) => {
         onClick={() => {
           if (_protocol) {
             onSuccess?.();
-            window.open(`${_protocol}://file/${filePath}`);
+            const link = document.createElement('a');
+            link.href = `${_protocol}://file/${filePath}`;
+            link.click();
           } else {
             setVisible(true);
           }
