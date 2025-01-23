@@ -9,4 +9,4 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 );
-init({ protocol: 'trae' });
+init();
