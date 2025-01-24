@@ -13,8 +13,8 @@ export default defineConfig({
   build: {
     lib: {
       name: 'test',
-      entry: 'utils/index.tsx',
-      formats: ['es', 'umd'],
+      entry: 'index.tsx',
+      formats: ['es'],
       fileName: (format, entryName) => `${entryName}.${format}.js`,
     },
     rollupOptions: {

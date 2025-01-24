@@ -42,9 +42,7 @@ const SelectModal = (props: SelectModalProps) => {
   }, [style]);
   return (
     <>
-      <div style={{ position: 'fixed', left: 0, top: 0, zIndex: 999999 }}>
-        {filePath || '暂无定位'}
-      </div>
+      <div style={{ position: 'fixed', left: 0, top: 0, zIndex: 999999 }}></div>
       {contextMenuVisible && (
         <div
           style={{
