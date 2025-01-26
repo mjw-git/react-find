@@ -2,8 +2,18 @@
     "name": "react-find",
     "version": "0.0.13",
     "type": "module",
-    "main": "dist/index.es.js",
+    "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.es.js",
+            "require": "./dist/index.es.js"
+        },
+        "./next": {
+            "import": "./dist/next/index.es.js",
+            "require": "./dist/next/index.es.js"
+        }
+    },
     "keywords": [
         "react",
         "react-find",
@@ -17,7 +27,7 @@
     },
     "scripts": {
         "dev": "vite",
-        "build": "tsc -b && vite build",
+        "build": "rm -rf dist&&tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview"
     },
@@ -26,11 +36,13 @@
         "LICENSE",
         "README.md"
     ],
-    "dependencies": {},
     "devDependencies": {
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
+        "@babel/core": "^7.26.0",
+        "@babel/preset-react": "^7.26.3",
+        "@babel/preset-typescript": "^7.26.0",
+        "@babel/types": "^7.26.7",
         "@eslint/js": "^9.17.0",
+        "@types/babel__core": "^7.20.5",
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
         "@vitejs/plugin-react": "^4.3.4",
@@ -39,6 +51,8 @@
         "eslint-plugin-react-refresh": "^0.4.16",
         "globals": "^15.14.0",
         "prettier": "^3.4.2",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
         "typescript": "~5.6.2",
         "typescript-eslint": "^8.18.2",
         "vite": "^6.0.5",

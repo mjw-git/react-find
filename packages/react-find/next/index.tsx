@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-require-imports */
 
-import { type CSSProperties, type ReactElement } from 'react';
-import { render } from 'react-dom';
-import SelectModal from './SelectModal';
+import { type CSSProperties } from 'react';
+import { createRoot } from 'react-dom/client';
+import SelectModal from '../SelectModal';
 
 interface ParamsProps {
   protocol?: string;
@@ -48,7 +48,7 @@ const init = (params?: ParamsProps) => {
   };
   const rootDom = createRootDom();
 
-  root = { render: (v: null | JSX.Element | ReactElement) => render(v as any, rootDom) };
+  root = createRoot(rootDom);
 
   const clear = () => {
     root?.render(null);
