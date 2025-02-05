@@ -4,16 +4,6 @@
     "type": "module",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "exports": {
-        ".": {
-            "import": "./dist/index.es.js",
-            "require": "./dist/index.es.js"
-        },
-        "./next": {
-            "import": "./dist/next/index.es.js",
-            "require": "./dist/next/index.es.js"
-        }
-    },
     "keywords": [
         "react",
         "react-find",

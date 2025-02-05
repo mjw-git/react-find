@@ -22,8 +22,7 @@ export default defineConfig({
       formats: ['es'],
       entry: {
         index: resolve(__dirname, 'index.tsx'),
-        'next/vite-plugin-react-source': resolve(__dirname, 'next/vite-plugin-react-source.ts'),
-        'next/index': resolve(__dirname, 'next/index.tsx'),
+        'next/index': resolve(__dirname, 'next/index.ts'),
       },
       fileName: (_, entryName) => `${entryName}.js`,
     },
