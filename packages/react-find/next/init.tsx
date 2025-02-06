@@ -1,22 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-require-imports */
 
-import { type CSSProperties } from 'react';
+// import { type CSSProperties } from 'react';
 import { createRoot } from 'react-dom/client';
-import SelectModal from '../SelectModal';
-
-interface ParamsProps {
+import SelectModal from './SelectModal';
+import { CSSProperties } from 'react';
+// export interface FiberNode {
+//   type: string | { name: string; render: { name: string } };
+//   _debugOwner: FiberNode;
+//   _debugSource: {
+//     columnNumber: number;
+//     lineNumber: number;
+//     fileName: string;
+//   };
+// }
+export interface ParamsProps {
   protocol?: string;
   keyCode?: string[];
 }
-export interface FiberNode {
-  type: string | { name: string; render: { name: string } };
-  _debugOwner: FiberNode;
-  _debugSource: {
-    columnNumber: number;
-    lineNumber: number;
-    fileName: string;
-  };
+export interface NodeItem {
+  'source-file-path': string;
+  tagName: string;
 }
 
 const init = (params?: ParamsProps) => {
@@ -25,9 +29,8 @@ const init = (params?: ParamsProps) => {
     return /macintosh|mac os x/i.test(navigator.userAgent);
   };
   const DEFAULT_KEY_CODE = isMac() ? ['Meta'] : ['Control'];
-  const { protocol, keyCode = DEFAULT_KEY_CODE } = params || {};
+  const { keyCode = DEFAULT_KEY_CODE, protocol } = params || {};
 
-  const body = document.body;
   let current: HTMLElement | null = null;
   let keyDown = false;
   let root: { render: any } | null = null;
@@ -55,46 +58,39 @@ const init = (params?: ParamsProps) => {
     keyDown = false;
   };
 
-  const findReactFiberAttr = (node: HTMLElement): FiberNode | undefined => {
-    for (const prop in node) {
-      if (prop.startsWith('__reactFiber')) {
-        return node[prop as keyof HTMLElement] as unknown as FiberNode;
-      }
-    }
+  const findNodeAttrFilePath = (node: HTMLElement): string | undefined => {
+    return node.getAttribute('source-file-path') as string;
   };
-
+  // const findReactFiberAttr = (node: HTMLElement): FiberNode | undefined => {
+  //   for (const prop in node) {
+  //     if (prop.startsWith('__reactFiber')) {
+  //       return node[prop as keyof HTMLElement] as unknown as FiberNode;
+  //     }
+  //   }
+  // };
   const findParentNodeFileAttr = (node: HTMLElement) => {
-    const list: FiberNode[] = [];
+    const list: NodeItem[] = [];
     let _node: HTMLElement | null = node;
-    let attr = findReactFiberAttr(_node);
-    while (
-      !attr &&
-      _node &&
-      _node.parentElement !== body &&
-      _node !== body &&
-      !rootDom.contains(_node) &&
-      rootDom !== _node
-    ) {
-      _node = _node.parentElement;
-      if (_node) {
-        attr = findReactFiberAttr(_node);
+    const pathMap = new Map<string, boolean>();
+    while (_node?.parentElement && !rootDom.contains(_node) && rootDom !== _node) {
+      let path = findNodeAttrFilePath(_node);
+
+      if (path && !pathMap.has(path.split(':')[0])) {
+        pathMap.set(path.split(':')[0], true);
+
+        list.push({ 'source-file-path': path, tagName: _node.tagName });
       }
-    }
-    if (attr) list.push(attr);
-    while (attr?._debugOwner) {
-      list.push(attr._debugOwner);
-      attr = attr._debugOwner;
+      _node = _node.parentElement;
     }
 
-    (window as any).react_find_attr_list = list;
-    return { list, attr, _node, currentNode: node };
+    return { list, _node, currentNode: node };
   };
 
   const renderRect = () => {
     if (keyDown && current && document.body.contains(current)) {
       const rootDom = createRootDom();
-      const { attr, _node, list, currentNode } = findParentNodeFileAttr(current);
-      if (attr && _node && _node !== rootDom && !rootDom.contains(_node) && rootDom !== _node) {
+      const { _node, list, currentNode } = findParentNodeFileAttr(current);
+      if (_node && _node !== rootDom && !rootDom.contains(_node) && rootDom !== _node) {
         const rect = currentNode.getBoundingClientRect();
         const customStyle: CSSProperties = {
           wordBreak: 'break-all',
@@ -107,16 +103,18 @@ const init = (params?: ParamsProps) => {
           zIndex: 999999,
           border: '1px dashed #8250DF',
         };
-        const filePath = list.find((item) => item._debugSource);
-        if (list.length === 0 || !filePath) return;
+        console.log(list);
+
+        // const filePath = list.find((item) => item._debugSource);
+        if (list.length === 0) return;
         root?.render(
           <SelectModal
-            list={list.filter((item) => item._debugSource)}
+            list={list}
             onSuccess={() => {
               clear();
             }}
             protocol={protocol}
-            filePath={`${filePath._debugSource.fileName}:${filePath._debugSource.lineNumber}`}
+            filePath={list[0]['source-file-path']}
             style={customStyle}
           />,
         );
@@ -155,4 +153,4 @@ const init = (params?: ParamsProps) => {
     renderRect();
   });
 };
-export { init as default };
+export default init;

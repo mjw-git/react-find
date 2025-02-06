@@ -155,4 +155,4 @@ const init = (params?: ParamsProps) => {
     renderRect();
   });
 };
-export { init as default };
+export default init;

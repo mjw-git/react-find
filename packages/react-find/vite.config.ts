@@ -13,8 +13,12 @@ export default defineConfig({
       //   plugins: [['@babel/plugin-transform-react-jsx', { runtime: 'automatic' }]],
       // },
     }),
+    dts({
+      entryRoot: '.',
+      tsconfigPath: './tsconfig.build.json',
+      include: ['index.tsx', './next/**/**.ts', './next/**/**.tsx'],
+    }),
     (vitePluginRequire as any).default(),
-    dts({ tsconfigPath: './tsconfig.build.json' }),
   ],
   build: {
     lib: {

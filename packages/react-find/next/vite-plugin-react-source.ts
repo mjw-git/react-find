@@ -7,7 +7,6 @@ export default function reactSourcePlugin(): Plugin {
     name: 'vite-plugin-react-source',
     transform(code: string, id: string) {
       if (!id.match(/\.[jt]sx$/)) return null;
-      console.log('Processing file:', id);
 
       const result = transformSync(code, {
         filename: id,
@@ -23,7 +22,7 @@ export default function reactSourcePlugin(): Plugin {
 
                   path.node.attributes.push(
                     types.jsxAttribute(
-                      types.jsxIdentifier('source_file_path'),
+                      types.jsxIdentifier('source-file-path'),
                       types.stringLiteral(`${id}:${loc.start.line}`),
                     ),
                   );

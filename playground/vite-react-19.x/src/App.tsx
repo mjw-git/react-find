@@ -1,4 +1,4 @@
-import { Profiler, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Test from './components/Test';
 
@@ -6,11 +6,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <Profiler
-      id="aa"
-      onRender={(e, a, ...params) => {
-        console.log(e, a, params);
-      }}>
+    <div>
       <div>
         <Test
           aa="ddd"
@@ -30,7 +26,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </Profiler>
+    </div>
   );
 }
 

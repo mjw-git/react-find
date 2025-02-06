@@ -10,6 +10,25 @@
         "react find",
         "react dev"
     ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        },
+        "./next": {
+            "types": "./dist/next/index.d.ts",
+            "import": "./dist/next/index.js",
+            "require": "./dist/next/index.js"
+        }
+    },
+    "typesVersions": {
+        "*": {
+            "next": [
+                "./dist/next/index.d.ts"
+            ]
+        }
+    },
     "license": "MIT",
     "repository": {
         "type": "git",
