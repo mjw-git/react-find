@@ -1,8 +1,8 @@
 # React-find
 
-## Demo
-
 React-find can help you locate files quickly
+
+## Demo
 
 ![React-find in action](https://raw.githubusercontent.com/mjw-git/react-find/main/demo.gif)
 
@@ -17,14 +17,91 @@ pnpm install react-find
 
 ## Start
 
+If you use the **React 18.x** or higher version, you should use the plugin
+
+In Vite:
+
+```typescript
+//vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+// 添加类型声明以解决模块声明文件缺失问题
+import { vitePluginReactSource } from 'react-find/vite';
+// https://vite.dev/config/
+export default defineConfig({
+  define: {
+    'process.env': process.env,
+  },
+  plugins: [vitePluginReactSource(), react()],
+});
+```
+In Webpack
+```typescript
+ {
+        test: /\.(ts|tsx|js|jsx)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript'
+              ]
+            }
+          },{
+            loader: require.resolve('react-find/webpack/webpack-react-source-loader')
+          }
+        ]
+      },
+```
+
+
 Add the script to your file like `pages/app.tsx`:
 
-You need to make sure that process.env.NODE_ENV === 'development'
 
 ```jsx
+import {init} from 'react-find/next';
+
+init();
+```
+
+If you use the **React 17.x** or lower version, you need't to use the plugin,direct import
+
+```typescript
 import init from 'react-find';
 
 init();
+```
+
+In nextjs,use the webpack-react-source-loader
+```typescript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(ts|tsx|js|jsx)$/,
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: 'react-find/webpack/webpack-react-source-loader'
+        }
+      ]
+    });
+
+    return config;
+  }
+};
+
+export default nextConfig;
+
+```
+```typescript
+//app.tsx
+"use client"
+import {init} from 'react-find/next';
+init()
 ```
 
 Then Press the command(mac) or ctrl(win) and move your mouse to try it, click block will take you to the IDE
@@ -32,10 +109,13 @@ Then Press the command(mac) or ctrl(win) and move your mouse to try it, click bl
 You also can right click to find current node and parent node which can find the source file.
 
 If you always use the other IDE,You can init like this
-
 ```js
 init({ protocol: 'cursor' });
 ```
+## Tips
+- It only work that process.env.NODE_ENV === 'development'
+
+
 
 ## Options
 
