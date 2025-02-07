@@ -40,6 +40,13 @@ export default defineConfig({
       output: {
         preserveModules: true,
         preserveModulesRoot: '.',
+        banner: (chunk) => {
+          // 为特定文件添加 "use client" 指令
+          if (chunk.fileName.includes('FindContainer')||chunk.fileName.includes('SelectModal')) {
+            return '"use client";\n';
+          }
+          return '';
+        },
         globals: {
           react: 'React',
           reactDom: 'react-dom',

@@ -97,11 +97,44 @@ const nextConfig = {
 export default nextConfig;
 
 ```
+You should create a client Component to init it
 ```typescript
-//app.tsx
 "use client"
-import {init} from 'react-find/next';
-init()
+
+import { PropsWithChildren, useEffect } from "react"
+import {init} from 'react-find/next'
+const Profile=(props:PropsWithChildren)=>{
+    useEffect(()=>{
+        init()
+    },[])
+    return <div>{props.children}</div>
+
+}
+export default Profile
+
+```
+
+Then use it in your layout component
+
+```typescript
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+
+  return (
+    <html lang="en">
+      <body
+      >
+        <Profile>
+            {children}
+        </Profile>
+
+      </body>
+    </html>
+  );
+}
 ```
 
 Then Press the command(mac) or ctrl(win) and move your mouse to try it, click block will take you to the IDE

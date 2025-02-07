@@ -2,19 +2,11 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 
 // import { type CSSProperties } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 import SelectModal from '../SelectModal';
 import { CSSProperties } from 'react';
 import { NodeItem } from '../SelectModal';
-// export interface FiberNode {
-//   type: string | { name: string; render: { name: string } };
-//   _debugOwner: FiberNode;
-//   _debugSource: {
-//     columnNumber: number;
-//     lineNumber: number;
-//     fileName: string;
-//   };
-// }
+
 export interface ParamsProps {
   protocol?: string;
   keyCode?: string[];
@@ -31,7 +23,7 @@ const init = (params?: ParamsProps) => {
 
   let current: HTMLElement | null = null;
   let keyDown = false;
-  let root: { render: any } | null = null;
+  let root: Root | null = null;
   const createRootDom = () => {
     const dom = document.querySelector('#react-find-wrapper');
     if (dom) {
@@ -51,21 +43,20 @@ const init = (params?: ParamsProps) => {
 
   root = createRoot(rootDom);
 
+
   const clear = () => {
-    root?.render(null);
+   try {
+    root?.render(<SelectModal onSuccess={()=>{}} list={[]}/>);
+   } catch (error) {
+    console.log(error);
+   }
     keyDown = false;
   };
 
   const findNodeAttrFilePath = (node: HTMLElement): string | undefined => {
     return node.getAttribute('source-file-path') as string;
   };
-  // const findReactFiberAttr = (node: HTMLElement): FiberNode | undefined => {
-  //   for (const prop in node) {
-  //     if (prop.startsWith('__reactFiber')) {
-  //       return node[prop as keyof HTMLElement] as unknown as FiberNode;
-  //     }
-  //   }
-  // };
+
   const findParentNodeFileAttr = (node: HTMLElement) => {
     const list: NodeItem[] = [];
     let _node: HTMLElement | null = node;
@@ -101,10 +92,9 @@ const init = (params?: ParamsProps) => {
           zIndex: 999999,
           border: '1px dashed #8250DF',
         };
-        console.log(list);
 
-        // const filePath = list.find((item) => item._debugSource);
         if (list.length === 0) return;
+
         root?.render(
           <SelectModal
             list={list}
@@ -125,6 +115,7 @@ const init = (params?: ParamsProps) => {
       keyDown = true;
       renderRect();
     } else {
+          console.log(344);
       clear();
     }
   });
