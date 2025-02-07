@@ -24,7 +24,7 @@ export interface NodeItem {
 }
 
 const init = (params?: ParamsProps) => {
-  if (process.env.NODE_ENV !== 'development' || typeof window === 'undefined') return;
+  // if (process.env.NODE_ENV !== 'development' || typeof window === 'undefined') return;
   const isMac = function () {
     return /macintosh|mac os x/i.test(navigator.userAgent);
   };

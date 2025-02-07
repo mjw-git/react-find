@@ -1,0 +1,17 @@
+{
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "endOfLine": "lf",
+    "printWidth": 100,
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "no-multiple-empty-lines": [
+        "error",
+        {
+            "max": 1
+        }
+    ],
+    "trim_trailing_whitespace": true
+}

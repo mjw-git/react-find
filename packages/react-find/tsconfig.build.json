@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["next/index.ts"]
+  "include": ["next","vite","webpack"]
 }

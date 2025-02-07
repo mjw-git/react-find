@@ -14,18 +14,39 @@
         ".": {
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js",
-            "require": "./dist/index.js"
+            "require": "./dist/index.cjs"
         },
         "./next": {
             "types": "./dist/next/index.d.ts",
             "import": "./dist/next/index.js",
-            "require": "./dist/next/index.js"
+            "require": "./dist/next/index.cjs"
+        },
+        "./vite": {
+            "types": "./dist/vite/index.d.ts",
+            "import": "./dist/vite/index.js",
+            "require": "./dist/vite/index.cjs"
+        },
+        "./webpack": {
+            "types": "./dist/webpack/index.d.ts",
+            "import": "./dist/webpack/index.js",
+            "require": "./dist/webpack/index.cjs"
+        },
+        "./webpack/webpack-react-source-loader": {
+            "types": "./dist/webpack/webpack-react-source-loader.d.ts",
+            "import": "./dist/webpack/webpack-react-source-loader.js",
+            "require": "./dist/webpack/webpack-react-source-loader.cjs"
         }
     },
     "typesVersions": {
         "*": {
             "next": [
                 "./dist/next/index.d.ts"
+            ],
+            "vite": [
+                "./dist/vite/index.d.ts"
+            ],
+            "webpack": [
+                "./dist/webpack/index.d.ts"
             ]
         }
     },
@@ -62,10 +83,13 @@
         "prettier": "^3.4.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "source-map": "^0.7.4",
+        "tapable": "^2.2.1",
         "typescript": "~5.6.2",
         "typescript-eslint": "^8.18.2",
         "vite": "^6.0.5",
         "vite-plugin-dts": "^4.4.0",
-        "vite-plugin-require": "^1.2.14"
+        "vite-plugin-require": "^1.2.14",
+        "webpack": "^5.90.3"
     }
 }

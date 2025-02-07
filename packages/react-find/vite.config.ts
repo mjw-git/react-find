@@ -16,19 +16,25 @@ export default defineConfig({
     dts({
       entryRoot: '.',
       tsconfigPath: './tsconfig.build.json',
-      include: ['index.tsx', './next/**/**.ts', './next/**/**.tsx'],
+      include: ['index.tsx', './next/**/**.ts', './next/**/**.tsx',"./vite/**/**.ts","./vite/**/**.tsx","./webpack/**/**.ts","./webpack/**/**.tsx"],
     }),
     (vitePluginRequire as any).default(),
   ],
   build: {
     lib: {
       name: 'test',
-      formats: ['es'],
+      formats: ['es','cjs'],
       entry: {
         index: resolve(__dirname, 'index.tsx'),
         'next/index': resolve(__dirname, 'next/index.ts'),
+        'vite/index': resolve(__dirname, 'vite/index.ts'),
+        'webpack/index': resolve(__dirname, 'webpack/index.ts'),
       },
-      fileName: (_, entryName) => `${entryName}.js`,
+      fileName: (format, entryName) => {
+        if(format==='cjs'){
+          return `${entryName}.cjs`;
+        }
+        return `${entryName}.js`},
     },
     rollupOptions: {
       output: {
