@@ -111,7 +111,9 @@ const init = (params?: ParamsProps) => {
         if (list.length === 0 || !filePath) return;
         root?.render(
           <SelectModal
-            list={list.filter((item) => item._debugSource)}
+            list={list.filter((item) => item._debugSource).map(item=>({'source-file-path':`${item._debugSource.fileName}:${item._debugSource.lineNumber}`,tagName:typeof item.type === 'string'
+                    ? `${item.type}`
+                    : `${item?.type?.name || item.type?.render?.name}`}))}
             onSuccess={() => {
               clear();
             }}

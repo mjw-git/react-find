@@ -3,8 +3,9 @@
 
 // import { type CSSProperties } from 'react';
 import { createRoot } from 'react-dom/client';
-import SelectModal from './SelectModal';
+import SelectModal from '../SelectModal';
 import { CSSProperties } from 'react';
+import { NodeItem } from '../SelectModal';
 // export interface FiberNode {
 //   type: string | { name: string; render: { name: string } };
 //   _debugOwner: FiberNode;
@@ -18,13 +19,10 @@ export interface ParamsProps {
   protocol?: string;
   keyCode?: string[];
 }
-export interface NodeItem {
-  'source-file-path': string;
-  tagName: string;
-}
+
 
 const init = (params?: ParamsProps) => {
-  // if (process.env.NODE_ENV !== 'development' || typeof window === 'undefined') return;
+  if (process.env.NODE_ENV !== 'development' || typeof window === 'undefined') return;
   const isMac = function () {
     return /macintosh|mac os x/i.test(navigator.userAgent);
   };
