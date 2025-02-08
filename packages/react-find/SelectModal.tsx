@@ -1,13 +1,16 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { FiberNode } from '.';
-
+export interface NodeItem {
+  'source-file-path': string;
+  tagName: string;
+}
 interface SelectModalProps {
   style?: React.CSSProperties;
   filePath?: string;
   protocol?: string;
   onSuccess: () => void;
-  list?: FiberNode[];
+  list?: NodeItem[];
 }
+const contextMenuWidth = 300
 const dialogCss: React.CSSProperties = {
   width: 254,
   position: 'fixed',
@@ -15,7 +18,6 @@ const dialogCss: React.CSSProperties = {
   top: '0',
   padding: '20px',
   borderRadius: 12,
-
   flexDirection: 'column',
   justifyContent: 'space-evenly',
   background: '#F6F7FD',
@@ -42,9 +44,7 @@ const SelectModal = (props: SelectModalProps) => {
   }, [style]);
   return (
     <>
-      <div style={{ position: 'fixed', left: 0, top: 0, zIndex: 999999 }}>
-        {filePath || '暂无定位'}
-      </div>
+      <div style={{ position: 'fixed', left: 0, top: 0, zIndex: 999999 }}></div>
       {contextMenuVisible && (
         <div
           style={{
@@ -54,7 +54,7 @@ const SelectModal = (props: SelectModalProps) => {
             left: 0,
             top: 0,
             zIndex: 1999999,
-            width: 200,
+            width: contextMenuWidth,
             overflow: 'auto',
             height: 250,
             background: '#000',
@@ -67,15 +67,11 @@ const SelectModal = (props: SelectModalProps) => {
                   ref.current[index] = _;
                 }}
                 onClick={() => {
-                  if (!item._debugSource) return;
                   if (_protocol) {
                     onSuccess?.();
-                    console.log(11);
-                    openWithProtocol(
-                      `${_protocol}://file/${item._debugSource.fileName}:${item._debugSource.lineNumber}`,
-                    );
+                    openWithProtocol(`${_protocol}://file/${item['source-file-path']}`);
                   } else {
-                    setFilePath(`${item._debugSource.fileName}:${item._debugSource.lineNumber}`);
+                    setFilePath(`${item['source-file-path']}`);
                     setVisible(true);
                   }
                 }}
@@ -83,7 +79,7 @@ const SelectModal = (props: SelectModalProps) => {
                   ref.current[index].style.color = '#fff';
                 }}
                 onMouseEnter={() => {
-                  ref.current[index].style.color = '#82CC8F';
+                  ref.current[index].style.color = '#FF523F';
                 }}
                 style={{
                   fontSize: 12,
@@ -93,24 +89,23 @@ const SelectModal = (props: SelectModalProps) => {
                 }}
                 key={index}>
                 <div style={{ fontSize: 16, color: '#416AE0', fontWeight: 600 }}>
-                  {typeof item.type === 'string'
-                    ? `<${item.type}/>`
-                    : `<${item?.type?.name || item.type?.render?.name}/>`}
+                  {`<${item.tagName.toLowerCase()}/>`}
                   <span
                     style={{
                       background: '#fff',
-                      color: index === 0 ? '#82CC8F' : '#000',
-                      fontSize: 10,
+                      color: index === 0 ? '#FF523F' : '#000',
+                      fontSize: 12,
                       padding: '0 5px',
                       marginLeft: 4,
-                      borderRadius: 12,
+                      borderRadius: 4,
                     }}>
                     {index === 0 ? 'current' : 'parent'}
                   </span>
                 </div>
                 <div
-                  title={item?._debugSource?.fileName}
+                  title={item?.['source-file-path']}
                   style={{
+                    marginTop: 4,
                     wordBreak: 'break-all',
                   }}>
                   <span
@@ -123,7 +118,7 @@ const SelectModal = (props: SelectModalProps) => {
                     }}>
                     Source File
                   </span>
-                  {item?._debugSource?.fileName}:{item._debugSource.lineNumber}
+                  {item['source-file-path']}
                 </div>
               </div>
             );
@@ -135,8 +130,8 @@ const SelectModal = (props: SelectModalProps) => {
           setContextMenuVisible(true);
           let x = e.clientX,
             y = e.clientY;
-          if (e.clientX + 200 > window.innerWidth) {
-            x = e.clientX - 200 <= 0 ? 0 : e.clientX - 200;
+          if (e.clientX + contextMenuWidth > window.innerWidth) {
+            x = e.clientX - contextMenuWidth <= 0 ? 0 : e.clientX - contextMenuWidth;
           }
           if (e.clientY + 250 > window.innerHeight) {
             y = e.clientY - 250 <= 0 ? 0 : e.clientY - 250;
@@ -194,7 +189,7 @@ const SelectModal = (props: SelectModalProps) => {
                   }}
                   checked={selectValue === 'vscode'}
                   type="radio"></input>
-                <span>Vs code</span>
+                <span>VS Code</span>
               </span>
               <span
                 onClick={() => {

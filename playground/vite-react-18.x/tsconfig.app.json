@@ -14,7 +14,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-    "declaration":true,
+    "declaration": true,
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src","utils"]
+  "include": ["src"]
 }
