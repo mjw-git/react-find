@@ -50,12 +50,6 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
       source-map:
         specifier: ^0.7.4
         version: 0.7.4

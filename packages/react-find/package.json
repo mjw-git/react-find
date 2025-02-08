@@ -1,6 +1,6 @@
 {
     "name": "react-find",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "type": "module",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -81,8 +81,6 @@
         "eslint-plugin-react-refresh": "^0.4.16",
         "globals": "^15.14.0",
         "prettier": "^3.4.2",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
         "source-map": "^0.7.4",
         "tapable": "^2.2.1",
         "typescript": "~5.6.2",
