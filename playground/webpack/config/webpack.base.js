@@ -1,5 +1,5 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: path.resolve(__dirname, '../src/index.tsx'),
   output: {
@@ -7,6 +7,10 @@ module.exports = {
     filename: '[name].[hash:8].js', // 打包的文件名
   },
   resolve: {
+    modules: ['node_modules'],
+    alias: {
+      'react-dom/client': require.resolve('react-dom/client'),
+    },
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   module: {
@@ -18,31 +22,28 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                '@babel/preset-env',
-                '@babel/preset-react',
-                '@babel/preset-typescript'
-              ]
-            }
-          },{
-            loader: require.resolve('react-find/webpack/webpack-react-source-loader')
-          }
-        ]
+              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+            },
+          },
+          {
+            loader: require.resolve('react-find/webpack/webpack-react-source-loader'),
+          },
+        ],
       },
       {
         test: /\.(css|less)$/,
-        use: ['style-loader', 'css-loader', 'less-loader']
+        use: ['style-loader', 'css-loader', 'less-loader'],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         type: 'asset',
         parser: {
           dataUrlCondition: {
-            maxSize: 10 * 1024
-          }
-        }
-      }
-    ]
+            maxSize: 10 * 1024,
+          },
+        },
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -51,8 +52,8 @@ module.exports = {
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeRedundantAttributes: true
-      }
-    })
-  ]
-}
+        removeRedundantAttributes: true,
+      },
+    }),
+  ],
+};

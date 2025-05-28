@@ -1,6 +1,6 @@
 {
     "name": "react-find",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "type": "module",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -35,7 +35,8 @@
             "types": "./dist/webpack/webpack-react-source-loader.d.ts",
             "import": "./dist/webpack/webpack-react-source-loader.js",
             "require": "./dist/webpack/webpack-react-source-loader.cjs"
-        }
+        },
+        "./webpack/webpack-react-source-loader.cjs": "./dist/webpack/webpack-react-source-loader.cjs"
     },
     "typesVersions": {
         "*": {
@@ -64,7 +65,8 @@
     "files": [
         "dist/",
         "LICENSE",
-        "README.md"
+        "README.md",
+        "README.zh-CN.md"
     ],
     "devDependencies": {
         "@babel/core": "^7.26.0",

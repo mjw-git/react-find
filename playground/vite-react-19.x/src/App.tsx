@@ -8,6 +8,7 @@ function App() {
   return (
     <div>
       <div>
+        11
         <Test
           aa="ddd"
           fn={() => {
@@ -20,7 +21,7 @@ function App() {
       <canvas style={{ width: 300, height: 300, border: '1px solid red' }}></canvas>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+        <button onClick={() => setCount(count => count + 1)}>count is {count}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

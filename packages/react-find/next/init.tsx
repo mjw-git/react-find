@@ -12,7 +12,6 @@ export interface ParamsProps {
   keyCode?: string[];
 }
 
-
 const init = (params?: ParamsProps) => {
   if (process.env.NODE_ENV !== 'development' || typeof window === 'undefined') return;
   const isMac = function () {
@@ -43,13 +42,12 @@ const init = (params?: ParamsProps) => {
 
   root = createRoot(rootDom);
 
-
   const clear = () => {
-   try {
-    root?.render(<SelectModal onSuccess={()=>{}} list={[]}/>);
-   } catch (error) {
-    console.log(error);
-   }
+    try {
+      root?.render(<SelectModal onSuccess={() => {}} list={[]} />);
+    } catch (error) {
+      console.log(error);
+    }
     keyDown = false;
   };
 
@@ -94,7 +92,6 @@ const init = (params?: ParamsProps) => {
         };
 
         if (list.length === 0) return;
-
         root?.render(
           <SelectModal
             list={list}
@@ -104,18 +101,17 @@ const init = (params?: ParamsProps) => {
             protocol={protocol}
             filePath={list[0]['source-file-path']}
             style={customStyle}
-          />,
+          />
         );
       }
     }
   };
 
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (keyCode.includes(e.key)) {
       keyDown = true;
       renderRect();
     } else {
-          console.log(344);
       clear();
     }
   });
@@ -131,7 +127,7 @@ const init = (params?: ParamsProps) => {
   window.addEventListener('blur', () => {
     clear();
   });
-  document.addEventListener('mousemove', (e) => {
+  document.addEventListener('mousemove', e => {
     if (e.target && (rootDom === e.target || rootDom.contains(e.target as HTMLElement))) {
       return;
     }

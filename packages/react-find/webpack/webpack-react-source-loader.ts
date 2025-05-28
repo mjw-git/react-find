@@ -20,8 +20,8 @@ function transformCode(code: string, id: string) {
               path.node.attributes.push(
                 types.jsxAttribute(
                   types.jsxIdentifier('source-file-path'),
-                  types.stringLiteral(`${id}:${loc.start.line}`),
-                ),
+                  types.stringLiteral(`${id}:${loc.start.line}`)
+                )
               );
             },
           },
