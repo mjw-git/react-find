@@ -1,5 +1,6 @@
 # React-find
 
+English | [简体中文](./README.zh-CN.md)
 React-find can help you locate files quickly
 
 ## Demo
@@ -17,7 +18,7 @@ pnpm install react-find
 
 ## Start
 
-If you use the **React 18.x** or higher version, you should use the plugin
+If you use the **React 19.x** or higher version, you should use the plugin
 
 In Vite:
 
@@ -35,7 +36,9 @@ export default defineConfig({
   plugins: [vitePluginReactSource(), react()],
 });
 ```
+
 In Webpack
+
 ```typescript
  {
         test: /\.(ts|tsx|js|jsx)$/,
@@ -57,12 +60,18 @@ In Webpack
       },
 ```
 
-
 Add the script to your file like `pages/app.tsx`:
 
-
 ```jsx
-import {init} from 'react-find/next';
+import { init } from 'react-find/next';
+
+init();
+```
+
+If you use **React 18.x**, you don't need to use the loader, but you need to import react-find/next
+
+```typescript
+import { init } from 'react-find/next';
 
 init();
 ```
@@ -76,28 +85,53 @@ init();
 ```
 
 In nextjs,use the webpack-react-source-loader
+
 ```typescript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
+  webpack: config => {
     config.module.rules.push({
       test: /\.(ts|tsx|js|jsx)$/,
       exclude: /node_modules/,
       use: [
         {
-          loader: 'react-find/webpack/webpack-react-source-loader'
-        }
-      ]
+          loader: 'react-find/webpack/webpack-react-source-loader',
+        },
+      ],
     });
 
     return config;
-  }
+  },
+};
+
+export default nextConfig;
+```
+
+If you use the **`turbopack`**, you can use the following configuration
+
+```
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  turbopack: {
+    rules: {
+      '*.tsx': {
+        loaders: ['react-find/webpack/webpack-react-source-loader'],
+      },
+
+      '*.jsx': {
+        loaders: ['react-find/webpack/webpack-react-source-loader'],
+      },
+    },
+  },
 };
 
 export default nextConfig;
 
 ```
+
 You should create a client Component to init it
+
 ```typescript
 "use client"
 
@@ -141,14 +175,15 @@ Then Press the command(mac) or ctrl(win) and move your mouse to try it, click bl
 
 You also can right click to find current node and parent node which can find the source file.
 
-If you always use the other IDE,You can init like this
+If you always use the other IDE,You can init like this, or set the key `react_find_protocol` in localStorage
+
 ```js
 init({ protocol: 'cursor' });
 ```
+
 ## Tips
+
 - It only work that process.env.NODE_ENV === 'development'
-
-
 
 ## Options
 
