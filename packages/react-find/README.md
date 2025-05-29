@@ -1,6 +1,6 @@
 # React-find
 
-English | [简体中文](./README.ZH-CN.md)
+English | [简体中文](./README.zh-CN.md)
 React-find can help you locate files quickly
 
 ## Demo
