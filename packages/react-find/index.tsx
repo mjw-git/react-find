@@ -8,6 +8,7 @@ import SelectModal from './SelectModal';
 interface ParamsProps {
   protocol?: string;
   keyCode?: string[];
+  remoteServerName?: string;
 }
 export interface FiberNode {
   type: string | { name: string; render: { name: string } };
@@ -25,7 +26,7 @@ const init = (params?: ParamsProps) => {
     return /macintosh|mac os x/i.test(navigator.userAgent);
   };
   const DEFAULT_KEY_CODE = isMac() ? ['Meta'] : ['Control'];
-  const { protocol, keyCode = DEFAULT_KEY_CODE } = params || {};
+  const { protocol, keyCode = DEFAULT_KEY_CODE, remoteServerName } = params || {};
 
   const body = document.body;
   let current: HTMLElement | null = null;
@@ -107,26 +108,33 @@ const init = (params?: ParamsProps) => {
           zIndex: 999999,
           border: '1px dashed #8250DF',
         };
-        const filePath = list.find((item) => item._debugSource);
+        const filePath = list.find(item => item._debugSource);
         if (list.length === 0 || !filePath) return;
         root?.render(
           <SelectModal
-            list={list.filter((item) => item._debugSource).map(item=>({'source-file-path':`${item._debugSource.fileName}:${item._debugSource.lineNumber}`,tagName:typeof item.type === 'string'
+            remoteServerName={remoteServerName}
+            list={list
+              .filter(item => item._debugSource)
+              .map(item => ({
+                'source-file-path': `${item._debugSource.fileName}:${item._debugSource.lineNumber}`,
+                tagName:
+                  typeof item.type === 'string'
                     ? `${item.type}`
-                    : `${item?.type?.name || item.type?.render?.name}`}))}
+                    : `${item?.type?.name || item.type?.render?.name}`,
+              }))}
             onSuccess={() => {
               clear();
             }}
             protocol={protocol}
             filePath={`${filePath._debugSource.fileName}:${filePath._debugSource.lineNumber}`}
             style={customStyle}
-          />,
+          />
         );
       }
     }
   };
 
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (keyCode.includes(e.key)) {
       keyDown = true;
       renderRect();
@@ -146,7 +154,7 @@ const init = (params?: ParamsProps) => {
   window.addEventListener('blur', () => {
     clear();
   });
-  document.addEventListener('mousemove', (e) => {
+  document.addEventListener('mousemove', e => {
     if (e.target && (rootDom === e.target || rootDom.contains(e.target as HTMLElement))) {
       return;
     }

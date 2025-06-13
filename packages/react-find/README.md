@@ -181,13 +181,22 @@ If you always use the other IDE,You can init like this, or set the key `react_fi
 init({ protocol: 'cursor' });
 ```
 
+## Support Remote SSH
+
+If you use the remote ssh, you can use the following configuration
+
+```js
+init({ protocol: 'cursor', remoteServerName: 'your-server-name' });
+```
+
 ## Tips
 
 - It only work that process.env.NODE_ENV === 'development'
 
 ## Options
 
-| Name     | Description                                                                                              | type     | default              |
-| -------- | -------------------------------------------------------------------------------------------------------- | -------- | -------------------- |
-| protocol | IDE protocol                                                                                             | string   | -                    |
-| keyCode  | [keyBoard keyCode](https://developer.mozilla.org/zh-CN/docs/Web/API/UI_Events/Keyboard_event_key_values) | string[] | ['Meta']/['Control'] |
+| Name             | Description                                                                                              | type     | default              |
+| ---------------- | -------------------------------------------------------------------------------------------------------- | -------- | -------------------- |
+| protocol         | IDE protocol                                                                                             | string   | -                    |
+| keyCode          | [keyBoard keyCode](https://developer.mozilla.org/zh-CN/docs/Web/API/UI_Events/Keyboard_event_key_values) | string[] | ['Meta']/['Control'] |
+| remoteServerName | Remote server name                                                                                       | string   | -                    |

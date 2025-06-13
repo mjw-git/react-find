@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-require-imports */
 
-// import { type CSSProperties } from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import SelectModal from '../SelectModal';
 import { CSSProperties } from 'react';
@@ -10,6 +9,7 @@ import { NodeItem } from '../SelectModal';
 export interface ParamsProps {
   protocol?: string;
   keyCode?: string[];
+  remoteServerName?: string;
 }
 
 const init = (params?: ParamsProps) => {
@@ -18,7 +18,7 @@ const init = (params?: ParamsProps) => {
     return /macintosh|mac os x/i.test(navigator.userAgent);
   };
   const DEFAULT_KEY_CODE = isMac() ? ['Meta'] : ['Control'];
-  const { keyCode = DEFAULT_KEY_CODE, protocol } = params || {};
+  const { keyCode = DEFAULT_KEY_CODE, protocol, remoteServerName } = params || {};
 
   let current: HTMLElement | null = null;
   let keyDown = false;
@@ -94,6 +94,7 @@ const init = (params?: ParamsProps) => {
         if (list.length === 0) return;
         root?.render(
           <SelectModal
+            remoteServerName={remoteServerName}
             list={list}
             onSuccess={() => {
               clear();

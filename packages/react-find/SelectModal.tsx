@@ -4,6 +4,7 @@ export interface NodeItem {
   tagName: string;
 }
 interface SelectModalProps {
+  remoteServerName?: string;
   style?: React.CSSProperties;
   filePath?: string;
   protocol?: string;
@@ -13,7 +14,7 @@ interface SelectModalProps {
 const contextMenuWidth = 300;
 
 const SelectModal = (props: SelectModalProps) => {
-  const { style, filePath: path, protocol, onSuccess, list } = props;
+  const { style, filePath: path, protocol, onSuccess, list, remoteServerName } = props;
   const ref = useRef<HTMLDivElement[]>([]);
   const [filePath, setFilePath] = useState(path);
   const [contextMenuStyle, setContextMenuStyle] = useState<CSSProperties>();
@@ -60,7 +61,11 @@ const SelectModal = (props: SelectModalProps) => {
                 onClick={() => {
                   if (_protocol) {
                     onSuccess?.();
-                    openWithProtocol(`${_protocol}://file/${item['source-file-path']}`);
+                    openWithProtocol(
+                      remoteServerName
+                        ? `${_protocol}://vscode-remote/ssh-remote+${remoteServerName}${item['source-file-path']}`
+                        : `${_protocol}://file/${item['source-file-path']}`
+                    );
                   }
                 }}
                 onMouseLeave={() => {
@@ -140,7 +145,11 @@ const SelectModal = (props: SelectModalProps) => {
         onClick={() => {
           if (_protocol && filePath) {
             onSuccess?.();
-            openWithProtocol(`${_protocol}://file/${filePath}`);
+            openWithProtocol(
+              remoteServerName
+                ? `${_protocol}://vscode-remote/ssh-remote+${remoteServerName}${filePath}`
+                : `${_protocol}://file/${filePath}`
+            );
           }
         }}
       ></div>

@@ -182,13 +182,22 @@ export default function RootLayout({
 init({ protocol: 'cursor' });
 ```
 
+## 支持 Remote SSH
+
+如果您使用的是 Remote SSH，您可以使用以下配置
+
+```js
+init({ protocol: 'cursor', remoteServerName: 'your-server-name' });
+```
+
 ## 提示
 
 - 它只在 process.env.NODE_ENV === 'development' 时工作
 
 ## 选项
 
-| 名称     | 描述                                                                                                 | 类型     | 默认值               |
-| -------- | ---------------------------------------------------------------------------------------------------- | -------- | -------------------- |
-| protocol | IDE 协议                                                                                             | string   | -                    |
-| keyCode  | [键盘按键代码](https://developer.mozilla.org/zh-CN/docs/Web/API/UI_Events/Keyboard_event_key_values) | string[] | ['Meta']/['Control'] |
+| 名称             | 描述                                                                                                 | 类型     | 默认值               |
+| ---------------- | ---------------------------------------------------------------------------------------------------- | -------- | -------------------- |
+| protocol         | IDE 协议                                                                                             | string   | -                    |
+| keyCode          | [键盘按键代码](https://developer.mozilla.org/zh-CN/docs/Web/API/UI_Events/Keyboard_event_key_values) | string[] | ['Meta']/['Control'] |
+| remoteServerName | Remote server name                                                                                   | string   | -                    |
