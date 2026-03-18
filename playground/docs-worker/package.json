@@ -1,0 +1,16 @@
+{
+  "name": "react-find-docs-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Marketing and documentation site for react-find, deployable on Cloudflare Workers.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "preview:static": "python3 -m http.server 4173 -d public",
+    "deploy": "wrangler deploy",
+    "check": "node --check src/index.js && node --check public/app.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

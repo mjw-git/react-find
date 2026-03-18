@@ -1,2 +1,2 @@
-import init from './init.tsx';
+import init from './init';
 export { init };

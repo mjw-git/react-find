@@ -1,103 +1,174 @@
-import Image from "next/image";
+const stats = [
+  { value: 'Next 15', label: 'App Router surface' },
+  { value: 'Click current node', label: 'Open the source line' },
+  { value: 'Right click parents', label: 'Inspect owner ancestry' },
+];
+
+const workflow = [
+  {
+    title: 'Hover polished surfaces',
+    copy: 'Inspect large hero blocks, nested info cards, buttons, and compact metadata panels.',
+  },
+  {
+    title: 'Jump into source fast',
+    copy: 'Use left click when the highlight is on the exact node you want to open.',
+  },
+  {
+    title: 'Compare parent ownership',
+    copy: 'Open the context menu to walk up the tree and confirm how ownership changes across nested sections.',
+  },
+];
+
+const hotspots = [
+  { path: 'src/app/page.tsx', copy: 'Landing experience and inspection cards' },
+  { path: 'src/app/layout.tsx', copy: 'App shell and metadata' },
+  { path: 'components/Profile/index.tsx', copy: 'Client-side init wrapper' },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="relative min-h-screen overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.18),transparent_28%),radial-gradient(circle_at_top_right,rgba(249,115,22,0.14),transparent_24%),radial-gradient(circle_at_bottom,rgba(45,212,191,0.16),transparent_32%)]" />
+      <div className="relative mx-auto max-w-6xl px-6 py-10 sm:px-10 lg:px-12">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="rounded-full border border-sky-400/20 bg-sky-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-sky-100">
+            React Find Demo
+          </span>
+          <span className="rounded-full border border-white/10 bg-slate-950/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+            Next 15
+          </span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)]">
+          <section className="rounded-[32px] border border-white/10 bg-slate-950/70 p-7 shadow-[0_24px_90px_rgba(2,6,23,0.42)] backdrop-blur-xl sm:p-9">
+            <h1 className="max-w-[12ch] text-5xl font-semibold leading-[0.9] tracking-[-0.06em] text-slate-50 sm:text-7xl">
+              Test react-find on a UI that looks intentional.
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+              The default template is gone. This demo now behaves like a compact product showcase so you can
+              inspect nested App Router content on a page with stronger hierarchy, rhythm, and contrast.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href="https://github.com/mjw-git/react-find"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-12 items-center justify-center rounded-full bg-sky-500 px-5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-sky-400"
+              >
+                View project
+              </a>
+              <a
+                href="https://nextjs.org/docs"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/12 bg-slate-900/70 px-5 text-sm font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-sky-400/40"
+              >
+                Next docs
+              </a>
+            </div>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {stats.map(item => (
+                <article
+                  key={item.value}
+                  className="rounded-[24px] border border-white/10 bg-slate-900/80 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+                >
+                  <p className="font-mono text-sm font-semibold text-slate-50">{item.value}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{item.label}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <aside className="space-y-6">
+            <section className="rounded-[28px] border border-white/10 bg-slate-950/72 p-6 shadow-[0_24px_70px_rgba(2,6,23,0.38)] backdrop-blur-xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Inspection targets</p>
+              <h2 className="mt-3 text-2xl font-semibold text-slate-50">Use real-looking nested surfaces</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-300">
+                This page intentionally mixes buttons, badges, text blocks, and stacked cards so current-node and
+                parent-owner inspection feel closer to a real app.
+              </p>
+            </section>
+
+            <section className="rounded-[28px] border border-white/10 bg-slate-950/72 p-6 shadow-[0_24px_70px_rgba(2,6,23,0.38)] backdrop-blur-xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Hotspots</p>
+              <div className="mt-5 space-y-3">
+                {hotspots.map(item => (
+                  <article
+                    key={item.path}
+                    className="rounded-[20px] border border-white/10 bg-slate-900/70 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+                  >
+                    <p className="font-mono text-sm font-semibold text-sky-100">{item.path}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-400">{item.copy}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        <section className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)]">
+          <article className="rounded-[32px] border border-white/10 bg-slate-950/70 p-7 shadow-[0_24px_90px_rgba(2,6,23,0.42)] backdrop-blur-xl sm:p-8">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Live DOM surface</p>
+                <h2 className="mt-3 text-3xl font-semibold text-slate-50">Polished cards make inspection easier to read</h2>
+              </div>
+              <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100">
+                page.tsx
+              </span>
+            </div>
+
+            <div className="mt-6 rounded-[28px] border border-white/10 bg-slate-900/72 p-5">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <section className="rounded-[22px] border border-white/10 bg-slate-950/72 p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-200">Current node</p>
+                  <h3 className="mt-3 text-xl font-semibold text-slate-50">Demo action card</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">
+                    Inspect the title, text, or button to validate that current-node jumping stays sharp on the
+                    updated layout.
+                  </p>
+                  <button className="mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-sky-500 px-4 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-sky-400">
+                    Trigger inspectable action
+                  </button>
+                </section>
+
+                <section className="rounded-[22px] border border-white/10 bg-slate-950/72 p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">Parent path</p>
+                  <div className="mt-4 space-y-3">
+                    <div className="rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3">
+                      <p className="font-mono text-sm font-semibold text-slate-100">section.hero-panel</p>
+                    </div>
+                    <div className="rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3">
+                      <p className="font-mono text-sm font-semibold text-slate-100">main.landing-shell</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </article>
+
+          <article className="rounded-[32px] border border-white/10 bg-slate-950/70 p-7 shadow-[0_24px_90px_rgba(2,6,23,0.42)] backdrop-blur-xl sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Workflow</p>
+            <div className="mt-5 space-y-4">
+              {workflow.map((item, index) => (
+                <article
+                  key={item.title}
+                  className="grid grid-cols-[auto_1fr] gap-4 rounded-[22px] border border-white/10 bg-slate-900/72 px-4 py-4"
+                >
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-sky-500/14 font-mono text-sm font-semibold text-sky-100">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <h3 className="text-base font-semibold text-slate-50">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-300">{item.copy}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </article>
+        </section>
+      </div>
     </div>
   );
 }

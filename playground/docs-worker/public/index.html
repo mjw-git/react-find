@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React Find · Source-Aware React Debugging</title>
+    <meta
+      id="meta-description"
+      name="description"
+      content="Inspect any rendered React node, trace it back to the exact source file, walk parent ownership, and jump to your editor in one click."
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="application-name" content="React Find" />
+    <link id="link-canonical" rel="canonical" href="./index.html" />
+    <meta id="meta-og-title" property="og:title" content="React Find · Source-Aware React Debugging" />
+    <meta
+      id="meta-og-description"
+      property="og:description"
+      content="Inspect any rendered React node, trace it back to the exact source file, walk parent ownership, and jump to your editor in one click."
+    />
+    <meta property="og:site_name" content="React Find" />
+    <meta id="meta-og-url" property="og:url" content="./index.html" />
+    <meta id="meta-og-locale" property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta id="meta-twitter-title" name="twitter:title" content="React Find · Source-Aware React Debugging" />
+    <meta
+      id="meta-twitter-description"
+      name="twitter:description"
+      content="Inspect any rendered React node, trace it back to the exact source file, walk parent ownership, and jump to your editor in one click."
+    />
+    <meta name="theme-color" content="#050506" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script id="structured-data" type="application/ld+json"></script>
+  </head>
+  <body>
+    <div class="page-background" aria-hidden="true">
+      <div class="page-background__grid"></div>
+      <div class="page-background__noise"></div>
+      <div class="page-background__blob page-background__blob--one"></div>
+      <div class="page-background__blob page-background__blob--two"></div>
+      <div class="page-background__blob page-background__blob--three"></div>
+      <div class="page-background__blob page-background__blob--four"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="site-header surface-card surface-card--glass" data-spotlight>
+        <a class="brand" href="#top" aria-label="React Find home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="2.5" y="3" width="19" height="18" rx="5" stroke="currentColor" stroke-width="1.6" />
+              <path
+                d="M7 9.5h10M7 12.5h6M7 15.5h8"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+              <circle cx="17.5" cy="15.5" r="2.2" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>React Find</strong>
+            <span>Source-aware debugging</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#quickstart" data-i18n="nav.quickstart">Quick Start</a>
+          <a href="#workflow" data-i18n="nav.workflow">Workflow</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        </nav>
+
+        <div class="header-actions">
+          <div class="language-switch" role="group" data-i18n-aria-label="nav.languageSwitch" aria-label="Language switch">
+            <button class="language-button" type="button" data-language="en" aria-pressed="true">EN</button>
+            <button class="language-button" type="button" data-language="zh" aria-pressed="false">中</button>
+          </div>
+
+          <a class="button button--ghost header-github" href="https://github.com/mjw-git/react-find" target="_blank" rel="noreferrer" data-i18n="nav.github">
+            GitHub
+          </a>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            data-i18n-aria-label="nav.menuOpen"
+            aria-label="Open navigation"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </header>
+
+      <div class="mobile-menu surface-card surface-card--glass" id="mobile-menu" hidden>
+        <nav class="mobile-menu__links" aria-label="Mobile navigation">
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#quickstart" data-i18n="nav.quickstart">Quick Start</a>
+          <a href="#workflow" data-i18n="nav.workflow">Workflow</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a class="button button--secondary" href="https://github.com/mjw-git/react-find" target="_blank" rel="noreferrer" data-i18n="nav.github">
+            GitHub
+          </a>
+        </nav>
+      </div>
+
+      <main id="top">
+        <section class="hero-grid">
+          <div class="hero-panel surface-card" data-spotlight>
+            <span class="eyebrow" data-i18n="hero.eyebrow">Premium React source inspector</span>
+            <h1 class="hero-title" data-i18n="hero.title">Trace the rendered UI</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">Jump straight back to the source.</p>
+            <p class="hero-text" data-i18n="hero.description">
+              react-find overlays the real interface, not component trees. Hover the element you care about, open the exact
+              source line, or walk upward through ownership when the render path gets messy.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button--primary" href="#quickstart" data-i18n="hero.primaryCta">Start with Quick Start</a>
+              <a class="button button--secondary" href="https://github.com/mjw-git/react-find" target="_blank" rel="noreferrer" data-i18n="hero.secondaryCta">
+                View GitHub
+              </a>
+            </div>
+
+            <div class="metrics-grid">
+              <article class="metric-card surface-subtle">
+                <p class="metric-card__value" data-i18n="stats.0.value">1 click</p>
+                <p class="metric-card__label" data-i18n="stats.0.label">Open the exact source line</p>
+              </article>
+              <article class="metric-card surface-subtle">
+                <p class="metric-card__value" data-i18n="stats.1.value">4 paths</p>
+                <p class="metric-card__label" data-i18n="stats.1.label">React 18, React 19, Next/Webpack, Remote SSH</p>
+              </article>
+            </div>
+          </div>
+
+          <aside class="hero-panel surface-card hero-panel--demo" data-spotlight>
+            <div class="demo-window">
+              <div class="demo-window__bar">
+                <span class="demo-window__dots">
+                  <i></i><i></i><i></i>
+                </span>
+                <span class="demo-window__title">react-find overlay</span>
+              </div>
+
+              <div class="demo-window__content">
+                <div class="demo-node surface-subtle">
+                  <div class="demo-node__meta">
+                    <span class="demo-pill" data-i18n="demo.currentNode">Current node</span>
+                    <span class="demo-badge" data-i18n="demo.shortcut">Cmd/Ctrl + Hover</span>
+                  </div>
+                  <h2>&lt;Button /&gt;</h2>
+                  <p data-i18n="demo.description">Click opens source. Right click reveals parent ownership.</p>
+                </div>
+
+                <div class="demo-chip-row">
+                  <span class="demo-chip">Vite</span>
+                  <span class="demo-chip">Webpack</span>
+                  <span class="demo-chip">Next</span>
+                  <span class="demo-chip">Remote SSH</span>
+                </div>
+
+                <div class="demo-code">
+                  <code id="demo-code" data-i18n="demo.code">init({&#10;  protocol: 'cursor',&#10;  remoteServerName: 'app-dev'&#10;});</code>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-note surface-subtle">
+              <span class="eyebrow" data-i18n="demo.noteEyebrow">Why it feels fast</span>
+              <h3 data-i18n="demo.noteTitle">Overlay + ancestry menu, tuned for real UI</h3>
+              <p data-i18n="demo.noteBody">
+                A thin hover layer keeps the page responsive, while the context menu helps you climb ownership trees without
+                leaving the screen.
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section-links surface-card surface-card--glass">
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#quickstart" data-i18n="nav.quickstart">Quick Start</a>
+          <a href="#workflow" data-i18n="nav.workflow">Workflow</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        </section>
+
+        <section class="section-block" id="features">
+          <div class="section-head">
+            <span class="eyebrow" data-i18n="sections.features.eyebrow">Why teams ship it</span>
+            <h2 data-i18n="sections.features.title">Made for the messy parts of real React debugging.</h2>
+            <p data-i18n="sections.features.description">
+              The site is now styled like a premium developer tool, but the product story stays practical: less guessing,
+              faster source jumps, clearer ownership.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card feature-card--large surface-card" data-spotlight>
+              <div class="feature-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="7.5" stroke="currentColor" stroke-width="1.7" />
+                  <path d="M12 4v4M12 16v4M4 12h4M16 12h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                  <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+                </svg>
+              </div>
+              <div class="feature-card__copy">
+                <h3 data-i18n="features.cards.0.title">Open the exact source</h3>
+                <p data-i18n="features.cards.0.body">
+                  Hold Command or Control, hover the real interface, and click to open the file and line that produced the
+                  current DOM node.
+                </p>
+              </div>
+              <div class="feature-tags">
+                <span data-i18n="features.tags.0">Hover live UI</span>
+                <span data-i18n="features.tags.1">Jump to editor</span>
+                <span data-i18n="features.tags.2">No React runtime dependency</span>
+              </div>
+            </article>
+
+            <article class="feature-card surface-card" data-spotlight>
+              <div class="feature-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 4 4.5 8 12 12 19.5 8 12 4Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                  <path d="M4.5 12 12 16l7.5-4" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                  <path d="M4.5 16 12 20l7.5-4" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <h3 data-i18n="features.cards.1.title">Inspect parent ownership</h3>
+              <p data-i18n="features.cards.1.body">
+                Right click the overlay to see the component ancestry and compare who owns the rendered output.
+              </p>
+            </article>
+
+            <article class="feature-card surface-card" data-spotlight>
+              <div class="feature-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7" />
+                  <rect x="13" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7" />
+                  <rect x="4" y="13" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7" />
+                  <rect x="13" y="13" width="7" height="7" rx="2" fill="currentColor" />
+                </svg>
+              </div>
+              <h3 data-i18n="features.cards.2.title">Fit every React stack</h3>
+              <p data-i18n="features.cards.2.body">
+                Support direct runtime mode for older React, a dedicated runtime entry for React 18, and source-attribute
+                flows for Vite, Webpack, and Next.
+              </p>
+            </article>
+
+            <article class="feature-card surface-card" data-spotlight>
+              <div class="feature-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M8.5 18.5h7.75a4.25 4.25 0 1 0-.65-8.45A5.5 5.5 0 0 0 5.75 11.5 3.75 3.75 0 0 0 8.5 18.5Z"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path d="m10 12.5 2 2 3.5-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <h3 data-i18n="features.cards.3.title">Remote SSH ready</h3>
+              <p data-i18n="features.cards.3.body">
+                Pass protocol plus remoteServerName to jump into files even when the app is running over Remote SSH.
+              </p>
+            </article>
+
+            <article class="feature-card feature-card--wide surface-card" data-spotlight>
+              <div class="feature-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 7.5h14M5 12h14M5 16.5h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                  <rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.7" />
+                </svg>
+              </div>
+              <h3 data-i18n="features.cards.4.title">Made for dense interfaces</h3>
+              <p data-i18n="features.cards.4.body">
+                Cards, tables, layout shells, and deeply nested surfaces stay debuggable because the overlay maps what is
+                rendered, not what you guess.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-block" id="quickstart">
+          <div class="section-head">
+            <span class="eyebrow" data-i18n="sections.quickstart.eyebrow">Quick Start</span>
+            <h2 data-i18n="sections.quickstart.title">Choose the setup path that matches your app.</h2>
+            <p data-i18n="sections.quickstart.description">
+              The docs focus on the highest-signal integrations so a team can copy, test, and onboard without digging through
+              implementation details first.
+            </p>
+          </div>
+
+          <div class="quickstart-grid">
+            <article class="install-card surface-card" data-spotlight>
+              <p class="install-card__label" data-i18n="install.label">Install</p>
+              <div class="install-card__shell">
+                <code id="install-command">pnpm install react-find</code>
+                <button class="copy-button" type="button" data-copy-target="install-command" data-i18n="copy.default">Copy</button>
+              </div>
+              <p class="install-card__footnote" data-i18n="install.footnote">
+                Keep it in development only. Production builds stay clean.
+              </p>
+            </article>
+
+            <div class="snippet-shell surface-card" data-spotlight>
+              <div class="snippet-tabs" role="tablist" aria-label="Setup variants">
+                <button class="snippet-tab is-active" type="button" data-snippet-tab="vite19" aria-selected="true" data-i18n="snippets.vite19.tab">
+                  Vite / React 19
+                </button>
+                <button class="snippet-tab" type="button" data-snippet-tab="react18" aria-selected="false" data-i18n="snippets.react18.tab">
+                  React 18
+                </button>
+                <button class="snippet-tab" type="button" data-snippet-tab="webpack" aria-selected="false" data-i18n="snippets.webpack.tab">
+                  Webpack / Next
+                </button>
+                <button class="snippet-tab" type="button" data-snippet-tab="remote" aria-selected="false" data-i18n="snippets.remote.tab">
+                  Remote SSH
+                </button>
+              </div>
+
+              <section class="snippet-panel is-active" data-snippet-panel="vite19">
+                <div class="snippet-panel__head">
+                  <div>
+                    <p class="eyebrow" data-i18n="snippets.vite19.eyebrow">Plugin mode</p>
+                    <h3 data-i18n="snippets.vite19.title">Add source attributes before init</h3>
+                  </div>
+                  <button class="copy-button copy-button--subtle" type="button" data-copy-target="snippet-code-vite19" data-i18n="copy.default">
+                    Copy
+                  </button>
+                </div>
+                <pre><code id="snippet-code-vite19" data-i18n="snippets.vite19.code">import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { vitePluginReactSource } from 'react-find/vite';
+
+export default defineConfig({
+  define: {
+    'process.env': process.env,
+  },
+  plugins: [vitePluginReactSource(), react()],
+});</code></pre>
+              </section>
+
+              <section class="snippet-panel" data-snippet-panel="react18" hidden>
+                <div class="snippet-panel__head">
+                  <div>
+                    <p class="eyebrow" data-i18n="snippets.react18.eyebrow">Runtime entry</p>
+                    <h3 data-i18n="snippets.react18.title">Use the dedicated React 18 entry</h3>
+                  </div>
+                  <button class="copy-button copy-button--subtle" type="button" data-copy-target="snippet-code-react18" data-i18n="copy.default">
+                    Copy
+                  </button>
+                </div>
+                <pre><code id="snippet-code-react18" data-i18n="snippets.react18.code">import { init } from 'react-find/next';
+
+init();</code></pre>
+              </section>
+
+              <section class="snippet-panel" data-snippet-panel="webpack" hidden>
+                <div class="snippet-panel__head">
+                  <div>
+                    <p class="eyebrow" data-i18n="snippets.webpack.eyebrow">Loader mode</p>
+                    <h3 data-i18n="snippets.webpack.title">Inject source-file-path during build</h3>
+                  </div>
+                  <button class="copy-button copy-button--subtle" type="button" data-copy-target="snippet-code-webpack" data-i18n="copy.default">
+                    Copy
+                  </button>
+                </div>
+                <pre><code id="snippet-code-webpack" data-i18n="snippets.webpack.code">{
+  test: /\.(ts|tsx|js|jsx)$/,
+  exclude: /node_modules/,
+  use: [
+    {
+      loader: 'babel-loader',
+      options: {
+        presets: [
+          '@babel/preset-env',
+          '@babel/preset-react',
+          '@babel/preset-typescript',
+        ],
+      },
+    },
+    {
+      loader: require.resolve('react-find/webpack/webpack-react-source-loader'),
+    },
+  ],
+}</code></pre>
+              </section>
+
+              <section class="snippet-panel" data-snippet-panel="remote" hidden>
+                <div class="snippet-panel__head">
+                  <div>
+                    <p class="eyebrow" data-i18n="snippets.remote.eyebrow">Editor protocol</p>
+                    <h3 data-i18n="snippets.remote.title">Jump into remote files too</h3>
+                  </div>
+                  <button class="copy-button copy-button--subtle" type="button" data-copy-target="snippet-code-remote" data-i18n="copy.default">
+                    Copy
+                  </button>
+                </div>
+                <pre><code id="snippet-code-remote" data-i18n="snippets.remote.code">import { init } from 'react-find/next';
+
+init({
+  protocol: 'cursor',
+  remoteServerName: 'your-server-name',
+});</code></pre>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block" id="workflow">
+          <div class="section-head">
+            <span class="eyebrow" data-i18n="sections.workflow.eyebrow">Workflow</span>
+            <h2 data-i18n="sections.workflow.title">Three actions. No guessing.</h2>
+            <p data-i18n="sections.workflow.description">
+              The tool stays inside your normal UI and keeps the debugging loop short.
+            </p>
+          </div>
+
+          <div class="workflow-grid">
+            <article class="step-card surface-card" data-spotlight>
+              <span class="step-card__index">01</span>
+              <div>
+                <h3 data-i18n="steps.0.title">Install and initialize</h3>
+                <p data-i18n="steps.0.body">
+                  Add react-find to development mode, then choose the runtime or build-time integration that matches the app.
+                </p>
+              </div>
+            </article>
+            <article class="step-card surface-card" data-spotlight>
+              <span class="step-card__index">02</span>
+              <div>
+                <h3 data-i18n="steps.1.title">Hover the real surface</h3>
+                <p data-i18n="steps.1.body">
+                  Move across buttons, forms, cards, or nested shells until the exact rendered node is highlighted.
+                </p>
+              </div>
+            </article>
+            <article class="step-card surface-card" data-spotlight>
+              <span class="step-card__index">03</span>
+              <div>
+                <h3 data-i18n="steps.2.title">Open source or climb ownership</h3>
+                <p data-i18n="steps.2.body">
+                  Left click opens the current source line. Right click gives you the parent stack when the render path needs more
+                  context.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="support-grid">
+            <article class="support-card surface-card" data-spotlight>
+              <span class="eyebrow" data-i18n="sections.support.eyebrow">Support matrix</span>
+              <h2 data-i18n="sections.support.title">Use the path that matches your runtime and build pipeline.</h2>
+              <ul class="support-list">
+                <li data-i18n="support.items.0">React 17 and lower: direct runtime entry</li>
+                <li data-i18n="support.items.1">React 18: dedicated next runtime entry</li>
+                <li data-i18n="support.items.2">React 19 and higher: Vite plugin or Webpack loader</li>
+                <li data-i18n="support.items.3">Remote SSH: set protocol and remoteServerName</li>
+              </ul>
+            </article>
+
+            <article class="support-card support-card--accent surface-card" data-spotlight>
+              <span class="eyebrow" data-i18n="support.rolloutEyebrow">Team rollout</span>
+              <h2 data-i18n="support.rolloutTitle">Bilingual docs, remote-friendly setup, and clear onboarding</h2>
+              <p data-i18n="support.rolloutBody">
+                This docs page ships with English and Chinese copy so you can share setup steps across local and remote teams
+                without maintaining duplicate sites.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-block" id="faq">
+          <div class="section-head">
+            <span class="eyebrow" data-i18n="sections.faq.eyebrow">FAQ</span>
+            <h2 data-i18n="sections.faq.title">Questions that come up before rolling it out to the team.</h2>
+            <p data-i18n="sections.faq.description">
+              These answers cover the setup paths people hit most often during adoption.
+            </p>
+          </div>
+
+          <div class="faq-list">
+            <details class="faq-item surface-card">
+              <summary>
+                <span data-i18n="faq.0.q">Which React versions are supported?</span>
+                <span class="faq-item__mark">+</span>
+              </summary>
+              <p data-i18n="faq.0.a">
+                React 17 and lower can use the direct runtime entry. React 18 can use the next runtime entry. React 19 and
+                higher should use the source-attribute plugin or loader path.
+              </p>
+            </details>
+
+            <details class="faq-item surface-card">
+              <summary>
+                <span data-i18n="faq.1.q">Does it work only in development?</span>
+                <span class="faq-item__mark">+</span>
+              </summary>
+              <p data-i18n="faq.1.a">
+                Yes. react-find is designed for local development and should only be initialized when your app is running in
+                development mode.
+              </p>
+            </details>
+
+            <details class="faq-item surface-card">
+              <summary>
+                <span data-i18n="faq.2.q">Can I use another editor protocol?</span>
+                <span class="faq-item__mark">+</span>
+              </summary>
+              <p data-i18n="faq.2.a">
+                Yes. Pass protocol in init, for example cursor, or persist react_find_protocol in localStorage for repeated use.
+              </p>
+            </details>
+
+            <details class="faq-item surface-card">
+              <summary>
+                <span data-i18n="faq.3.q">What if my app runs over Remote SSH?</span>
+                <span class="faq-item__mark">+</span>
+              </summary>
+              <p data-i18n="faq.3.a">
+                Provide remoteServerName in init so the generated editor URL uses the vscode-remote style path format.
+              </p>
+            </details>
+          </div>
+        </section>
+
+        <section class="cta-panel surface-card" data-spotlight>
+          <div>
+            <span class="eyebrow" data-i18n="cta.eyebrow">Ready to use it?</span>
+            <h2 data-i18n="cta.title">Ship source inspection into your local React workflow.</h2>
+          </div>
+          <div class="cta-panel__actions">
+            <a class="button button--primary" href="#quickstart" data-i18n="cta.primary">Start setup</a>
+            <a class="button button--secondary" href="https://github.com/mjw-git/react-find" target="_blank" rel="noreferrer" data-i18n="cta.secondary">
+              View GitHub
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p data-i18n="footer.tagline">Static docs experience, deployed on Cloudflare Workers.</p>
+      </footer>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

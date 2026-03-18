@@ -8,4 +8,4 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>
 );
-init({ protocol: 'trae', remoteServerName: 'dd' });
+init({ protocol: 'trae' });

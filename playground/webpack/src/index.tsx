@@ -1,6 +1,7 @@
 // index.tsx
 import * as ReactDOM from 'react-dom/client';
 import { init } from 'react-find/next';
+import './styles.css';
 
 import App from './App';
 // console.log(process)
