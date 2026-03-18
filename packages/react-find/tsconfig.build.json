@@ -14,7 +14,6 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
-    "jsx": "react-jsx",
     "declaration": true,
     /* Linting */
     "strict": false,
@@ -23,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["next","vite","webpack"]
+  "include": ["*.ts", "next", "vite", "webpack"]
 }

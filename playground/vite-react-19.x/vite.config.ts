@@ -8,5 +8,5 @@ export default defineConfig({
   define: {
     'process.env': process.env,
   },
-  plugins: [vitePluginReactSource(), react()],
+  plugins: [vitePluginReactSource() as any, react()],
 });
